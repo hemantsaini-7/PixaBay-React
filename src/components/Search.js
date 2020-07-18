@@ -15,17 +15,24 @@ class Search extends Component {
   };
 
   TextChange = (e) => {
+    const val = e.target.value;
     this.setState(
       {
-        [e.target.name]: e.target.value,
+        [e.target.name]: val,
       },
       () => {
-        axios
-          .get(
-            `${this.state.apiUrl}/?key=${this.state.apiKey}&q=${this.state.text}&image_type=photo&per_page=${this.state.limit}`
-          )
-          .then((res) => this.setState({ images: res.data.hits }))
-          .catch((err) => console.log(err));
+        if (val === "") {
+          this.setState({
+            images: [],
+          });
+        } else {
+          axios
+            .get(
+              `${this.state.apiUrl}/?key=${this.state.apiKey}&q=${this.state.text}&image_type=photo&per_page=${this.state.limit}`
+            )
+            .then((res) => this.setState({ images: res.data.hits }))
+            .catch((err) => console.log(err));
+        }
       }
     );
   };

@@ -4,9 +4,21 @@ import IconButton from "material-ui/IconButton";
 import FlatButton from "material-ui/FlatButton";
 import Dialog from "material-ui/Dialog";
 import ZoomIn from "material-ui/svg-icons/action/zoom-in";
-//import Zoom from "material-ui/svg-icons/action/zoom-in";
 
 class Result extends Component {
+  state = {
+    open: false,
+    currentImg: "",
+  };
+
+  handleOpen = (img) => {
+    this.setState({ open: true, currentImg: img });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     let imageListContent;
     const { images } = this.props;
@@ -24,7 +36,7 @@ class Result extends Component {
                 </span>
               }
               actionIcon={
-                <IconButton>
+                <IconButton onClick={() => this.handleOpen(img.largeImageURL)}>
                   <ZoomIn color='white' />
                 </IconButton>
               }
@@ -37,7 +49,24 @@ class Result extends Component {
     } else {
       imageListContent = null;
     }
-    return <div>{imageListContent}</div>;
+
+    const actions = [
+      <FlatButton label='Close' primary={true} onClick={this.handleClose} />,
+    ];
+
+    return (
+      <div>
+        {imageListContent}
+        <Dialog
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          <img src={this.state.currentImg} alt='' style={{ width: "100%" }} />
+        </Dialog>
+      </div>
+    );
   }
 }
 
