@@ -1,10 +1,10 @@
 ## About Project
 A ReactUI of the PixaBay, having a SearchBar and Images Limits Options acting as the queries in PixaBay API.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
-
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 In the project directory, you can run:
 
 ### `npm start`
